@@ -137,11 +137,11 @@
           </div>
           <h3 class="text-lg font-black text-slate-800">Log Masuk Murid RBT</h3>
           <p class="text-xs text-slate-500 mt-0.5">
-            Pilih nama anda dan masukkan Kata Laluan (Nombor Kad Pengenalan tanpa tanda sempang).
+            Pilih nama anda dan masukkan Nombor Kad Pengenalan tanpa tanda sempang (-).
           </p>
         </div>
 
-        <form id="studentLoginForm" onsubmit="handleStudentLogin(event)" class="space-y-3.5">
+        <form id="studentLoginForm" onsubmit="handleStudentLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Murid</label>
             <select id="studentSelect" required class="w-full border border-slate-300 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-sky-500 bg-slate-50">
@@ -150,8 +150,19 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kata Laluan (No. Kad Pengenalan)</label>
-            <input type="password" id="icInput" placeholder="Contoh: 130325010625" required class="w-full border border-slate-300 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-sky-500 bg-slate-50" />
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+              Kata Laluan <span class="text-rose-600 font-bold lowercase">(tanpa sempang -)</span>
+            </label>
+            <input 
+              type="password" 
+              id="icInput" 
+              placeholder="Masukkan No. Kad Pengenalan tanpa tanda sempang (-)" 
+              required 
+              class="w-full border border-slate-300 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-sky-500 bg-slate-50" 
+            />
+            <p class="text-[11px] text-slate-500 mt-1 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-circle-exclamation text-amber-500"></i> Peringatan: Masukkan angka sahaja tanpa sebarang tanda sempang (-).
+            </p>
           </div>
 
           <button type="submit" class="w-full bg-sky-700 hover:bg-sky-800 text-white font-bold py-3 rounded-xl transition ease-fluid text-xs shadow flex items-center justify-center gap-2">
@@ -362,7 +373,7 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg0ZYouqY_zD1Ey5pj3IyEVpelPAFnywVfNRzqD6R84DTeO4jlZb6buRqx5yW-fXVwbA/exec";
 
-    // 23 Murid daripada foto
+    // 23 Murid daripada foto[cite: 1]
     let STUDENTS_DATA = [
       { nama: "ALIF DANISH BIN MOHD SAIFULLYZAN SHAH", ic: "130325010625", sudahBuka: false },
       { nama: "ANNUR AFIA RAISHA BINTI AMRI", ic: "130123010424", sudahBuka: false },
@@ -514,9 +525,9 @@
         return;
       }
 
-      const stIC = String(found.noIc).trim().replace(/-/g, "");
+      const stIC = String(found.ic).trim().replace(/-/g, "");
       if (stIC !== icEntered) {
-        alert("Kata laluan (No. Kad Pengenalan) tidak padan! Sila pastikan tiada tanda sempang (-).");
+        alert("Kata laluan (No. Kad Pengenalan) tidak padan! Sila pastikan anda memasukkan angka tanpa tanda sempang (-).");
         return;
       }
 
