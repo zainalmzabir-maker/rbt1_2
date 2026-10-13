@@ -6,13 +6,13 @@
   <title>WEBAPP PdPr RBT TINGKATAN 1</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
+  <!-- Font Awesome Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     .ease-fluid {
       transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    /* 9 Jubin (3x3) */
+    /* 9 Jubin Grid 3x3 */
     .tile {
       display: flex;
       flex-direction: column;
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="refreshDataFromServer(true)" class="px-3 py-1.5 bg-sky-800 hover:bg-sky-700 text-xs font-semibold rounded-lg border border-sky-600 transition ease-fluid flex items-center gap-1.5">
+        <button onclick="refreshDataFromServer(true)" title="Kemas kini data" class="px-3 py-1.5 bg-sky-800 hover:bg-sky-700 text-xs font-semibold rounded-lg border border-sky-600 transition ease-fluid flex items-center gap-1.5">
           <i id="syncIcon" class="fa-solid fa-arrows-rotate"></i> Kemaskini
         </button>
         <button onclick="openAdminModal()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-sky-950 text-xs font-bold rounded-lg transition ease-fluid flex items-center gap-1.5 shadow">
@@ -104,7 +104,7 @@
         </div>
         <h2 class="text-lg md:text-xl font-black text-slate-800 mb-1">PUZZLE GAMBAR MISTERI RBT</h2>
         <p class="text-xs md:text-sm text-slate-600 max-w-2xl mx-auto">
-          Setiap jubin yang dibuka oleh murid akan kekal terbuka secara langsung untuk tatapan semua rakan sekelas!
+          Setiap jubin yang berjaya dibuka akan kekal terbuka secara langsung untuk tatapan semua rakan sekelas!
         </p>
       </div>
 
@@ -156,7 +156,7 @@
             <input 
               type="password" 
               id="icInput" 
-              placeholder="Masukkan No. Kad Pengenalan tanpa tanda sempang (-)" 
+              placeholder="Masukkan No. Kad Pengenalan" 
               required 
               class="w-full border border-slate-300 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-sky-500 bg-slate-50" 
             />
@@ -267,7 +267,7 @@
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1 uppercase">Jawapan Tekaan</label>
-          <input type="text" id="guessInput" placeholder="Contoh: Reka Bentuk Kereta Kawalan Jauh" required class="w-full border rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-amber-500" />
+          <input type="text" id="guessInput" placeholder="Tulis tekaan keseluruhan gambar di sini" required class="w-full border rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-amber-500" />
         </div>
         <button type="submit" id="btnSubmitGuess" class="w-full bg-amber-500 hover:bg-amber-600 text-sky-950 font-black py-2.5 rounded-xl text-xs shadow">
           <i class="fa-solid fa-paper-plane"></i> Hantar Tekaan
@@ -373,34 +373,34 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg0ZYouqY_zD1Ey5pj3IyEVpelPAFnywVfNRzqD6R84DTeO4jlZb6buRqx5yW-fXVwbA/exec";
 
-    // 23 Murid daripada foto[cite: 1]
+    // Senarai 23 Murid daripada lampiran data
     let STUDENTS_DATA = [
-      { nama: "ALIF DANISH BIN MOHD SAIFULLYZAN SHAH", ic: "130325010625", sudahBuka: false },
-      { nama: "ANNUR AFIA RAISHA BINTI AMRI", ic: "130123010424", sudahBuka: false },
-      { nama: "DARIQ HAFRIZAL BIN ROSLI", ic: "130606011069", sudahBuka: false },
-      { nama: "EZZHAM HAQIMI BAHRIN BIN BAHRIN", ic: "131019011149", sudahBuka: false },
-      { nama: "MUHAMAD MUAZ DARWISH BIN MUHAMAD HAIRUL NIZAM", ic: "131109010107", sudahBuka: false },
-      { nama: "MUHAMMAD AKIF FIRAAS BIN ARMAN", ic: "130827011855", sudahBuka: false },
-      { nama: "MUHAMMAD DANIYAL IRSYAD BIN ABDUL JABAR ALI", ic: "130117010671", sudahBuka: false },
-      { nama: "MUHAMMAD HAFIZAL BIN HIRMAN", ic: "131207011429", sudahBuka: false },
-      { nama: "MUHAMMAD IRFAN HAKIMIE", ic: "131204011909", sudahBuka: false },
-      { nama: "MUHAMMAD RYHAN MUQMIN BIN ABDUL RAZZAQ", ic: "131110050173", sudahBuka: false },
-      { nama: "NOR SHAFIKAH BINTI AZMAN", ic: "131027060012", sudahBuka: false },
-      { nama: "NOR SHAHZAMILA BINTI ZAMREE", ic: "130330011630", sudahBuka: false },
-      { nama: "NUR AINA NABIHAH BINTI HANIF", ic: "130704010916", sudahBuka: false },
-      { nama: "NUR AIRIES QALIESYA TAN BINTI ANUAR TAN", ic: "130617010774", sudahBuka: false },
-      { nama: "NUR AKIRA BINTI RIZAL", ic: "130529010520", sudahBuka: false },
-      { nama: "NUR EZZARA SOFEA BINTI MOHD YUSLIZAM", ic: "130815010388", sudahBuka: false },
-      { nama: "NUR HUMAYRAA AMANI BINTI MD HADAYAT", ic: "130519010260", sudahBuka: false },
-      { nama: "SYAHARA BINTI MU", ic: "130220011074", sudahBuka: false },
-      { nama: "SYED SHAHFUWAN BIN SYED MOHD AZLAN", ic: "130902010685", sudahBuka: false },
-      { nama: "TAN ZE YU", ic: "130710011069", sudahBuka: false },
-      { nama: "TEY MING YANG", ic: "130222011561", sudahBuka: false },
-      { nama: "ZAHRA SOFIA BINTI ABDUL MANSOR", ic: "130803010866", sudahBuka: false },
-      { nama: "ZAINOL WANALIFF BIN EZADIN", ic: "130409011043", sudahBuka: false }
+      { nama: "ALIF DANISH BIN MOHD SAIFULLYZAN SHAH", noIc: "130325010625", ic: "130325010625", sudahBuka: false },
+      { nama: "ANNUR AFIA RAISHA BINTI AMRI", noIc: "130123010424", ic: "130123010424", sudahBuka: false },
+      { nama: "DARIQ HAFRIZAL BIN ROSLI", noIc: "130606011069", ic: "130606011069", sudahBuka: false },
+      { nama: "EZZHAM HAQIMI BAHRIN BIN BAHRIN", noIc: "131019011149", ic: "131019011149", sudahBuka: false },
+      { nama: "MUHAMAD MUAZ DARWISH BIN MUHAMAD HAIRUL NIZAM", noIc: "131109010107", ic: "131109010107", sudahBuka: false },
+      { nama: "MUHAMMAD AKIF FIRAAS BIN ARMAN", noIc: "130827011855", ic: "130827011855", sudahBuka: false },
+      { nama: "MUHAMMAD DANIYAL IRSYAD BIN ABDUL JABAR ALI", noIc: "130117010671", ic: "130117010671", sudahBuka: false },
+      { nama: "MUHAMMAD HAFIZAL BIN HIRMAN", noIc: "131207011429", ic: "131207011429", sudahBuka: false },
+      { nama: "MUHAMMAD IRFAN HAKIMIE", noIc: "131204011909", ic: "131204011909", sudahBuka: false },
+      { nama: "MUHAMMAD RYHAN MUQMIN BIN ABDUL RAZZAQ", noIc: "131110050173", ic: "131110050173", sudahBuka: false },
+      { nama: "NOR SHAFIKAH BINTI AZMAN", noIc: "131027060012", ic: "131027060012", sudahBuka: false },
+      { nama: "NOR SHAHZAMILA BINTI ZAMREE", noIc: "130330011630", ic: "130330011630", sudahBuka: false },
+      { nama: "NUR AINA NABIHAH BINTI HANIF", noIc: "130704010916", ic: "130704010916", sudahBuka: false },
+      { nama: "NUR AIRIES QALIESYA TAN BINTI ANUAR TAN", noIc: "130617010774", ic: "130617010774", sudahBuka: false },
+      { nama: "NUR AKIRA BINTI RIZAL", noIc: "130529010520", ic: "130529010520", sudahBuka: false },
+      { nama: "NUR EZZARA SOFEA BINTI MOHD YUSLIZAM", noIc: "130815010388", ic: "130815010388", sudahBuka: false },
+      { nama: "NUR HUMAYRAA AMANI BINTI MD HADAYAT", noIc: "130519010260", ic: "130519010260", sudahBuka: false },
+      { nama: "SYAHARA BINTI MU", noIc: "130220011074", ic: "130220011074", sudahBuka: false },
+      { nama: "SYED SHAHFUWAN BIN SYED MOHD AZLAN", noIc: "130902010685", ic: "130902010685", sudahBuka: false },
+      { nama: "TAN ZE YU", noIc: "130710011069", ic: "130710011069", sudahBuka: false },
+      { nama: "TEY MING YANG", noIc: "130222011561", ic: "130222011561", sudahBuka: false },
+      { nama: "ZAHRA SOFIA BINTI ABDUL MANSOR", noIc: "130803010866", ic: "130803010866", sudahBuka: false },
+      { nama: "ZAINOL WANALIFF BIN EZADIN", noIc: "130409011043", ic: "130409011043", sudahBuka: false }
     ];
 
-    // 15 Soalan RBT Tingkatan 1
+    // Bank 15 Soalan RBT Tingkatan 1
     const QUESTION_BANK = [
       { id: 1, q: "Apakah maksud reka bentuk?", options: ["Pengetahuan tentang penyusunan bahan secara terancang untuk menghasilkan sesuatu produk", "Proses menjual barangan kepada pengguna", "Meniru produk orang lain", "Membeli alatan tangan yang moden"], answer: "A" },
       { id: 2, q: "Antara berikut, yang manakah merupakan elemen reka bentuk?", options: ["Warna, garisan dan bentuk", "Keseimbangan dan pengulangan", "Harga dan kos pasaran", "Keuntungan dan modal"], answer: "A" },
@@ -513,11 +513,11 @@
       }
     }
 
-    // Login Murid
+    // Pengendali Log Masuk Murid
     function handleStudentLogin(e) {
       e.preventDefault();
       const nama = document.getElementById("studentSelect").value;
-      const icEntered = document.getElementById("icInput").value.trim().replace(/-/g, "");
+      const icEntered = document.getElementById("icInput").value.trim().replace(/[-\s]/g, "");
 
       const found = STUDENTS_DATA.find(s => s.nama === nama);
       if (!found) {
@@ -525,19 +525,22 @@
         return;
       }
 
-      const stIC = String(found.ic).trim().replace(/-/g, "");
-      if (stIC !== icEntered) {
+      // Pastikan semakan nombor kad pengenalan sentiasa tepat
+      const rawIC = found.noIc || found.ic || "";
+      const stIC = String(rawIC).trim().replace(/[-\s]/g, "");
+
+      if (!stIC || stIC !== icEntered) {
         alert("Kata laluan (No. Kad Pengenalan) tidak padan! Sila pastikan anda memasukkan angka tanpa tanda sempang (-).");
         return;
       }
 
       currentStudent = found;
 
-      // Jika murid telah buka jubin sebelum ini
+      // Sekiranya murid sudah membuka jubin sebelum ini
       if (found.sudahBuka) {
         document.getElementById("loginCard").classList.add("hidden");
         document.getElementById("alreadyOpenedCard").classList.remove("hidden");
-        document.getElementById("alreadyOpenedMsg").textContent = `Anda (${found.nama}) telah pun membuka salah satu jubin sebelum ini. Anda tidak dibenarkan lagi menjawab soalan.`;
+        document.getElementById("alreadyOpenedMsg").textContent = `Anda (${found.nama}) telah pun membuka salah satu jubin sebelum ini. Anda tidak dibenarkan lagi menjawab kuiz.`;
         return;
       }
 
@@ -667,11 +670,11 @@
           alert("Gagal: " + result.message);
         }
       } catch (err) {
-        alert("Ralat semasa berhubung ke server: " + err.message);
+        alert("Ralat semasa berhubung ke pelayan: " + err.message);
       }
     }
 
-    // Modal Teka Gambar
+    // Modal Tekaan Gambar
     function openGuessModal() {
       document.getElementById("guessModal").classList.remove("hidden");
       if (currentStudent) {
@@ -706,7 +709,7 @@
       }
     }
 
-    // Panel Guru
+    // Panel Kawalan Guru
     function openAdminModal() {
       document.getElementById("adminModal").classList.remove("hidden");
     }
